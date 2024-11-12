@@ -207,13 +207,13 @@ class Boy:
         self.font.draw(
             self.x - 10, self.y + 50, f"{self.ball_count:02d}", (255, 255, 0)
         )
-        draw_rectangle(*self.get_bb())  #   튜플 해체
 
     def fire_ball(self):
         if self.ball_count > 0:
             self.ball_count -= 1
             ball = Ball(self.x, self.y, self.face_dir * 10)
             game_world.add_object(ball)
+            game_world.add_collision_pair("zombie:ball", None, ball)
 
     def get_bb(self):  #   Bounding Box
         if self.state_machine.cur_state == Sleep:

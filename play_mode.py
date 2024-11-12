@@ -25,7 +25,7 @@ def handle_events():
 
 
 def init():
-    global boy, balls, zomble
+    global boy, balls, zombie
 
     grass = Grass()
     game_world.add_object(grass, 0)

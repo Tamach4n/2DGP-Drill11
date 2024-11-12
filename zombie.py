@@ -36,6 +36,7 @@ class Zombie:
         self.x, self.y = random.randint(1600 - 800, 1600), 150
         self.size = 200
         self.collisionCount = 0
+        self.font = load_font("ENCR10B.TTF", 16)
         self.load_images()
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1, 1])
@@ -61,32 +62,39 @@ class Zombie:
             Zombie.images["Walk"][int(self.frame)].draw(
                 self.x, self.y, self.size, self.size
             )
-        draw_rectangle(*self.get_bb())
+        self.font.draw(
+            self.x + 50, self.y + 50, f"{self.collisionCount:02d}", (255, 0, 0)
+        )
 
     def handle_event(self, event):
         pass
 
     def get_bb(self):  #   Bounding Box
-        return (
-            self.x - 75,
-            self.y - 100,
-            self.x + 75,
-            self.y + 75,
-        )
+        if self.size == 200:
+            return (
+                self.x - 70,
+                self.y - 100,
+                self.x + 70,
+                self.y + 75,
+            )
+
+        else:
+            return self.x - 35, self.y - 50, self.x + 35, self.y + 37.5
 
     def handle_collision(self, group, other):
         # fill here
         if group == "zombie:ball":
-            # if self.collisionCount == 0:
-            #     self.collisionCount += 1
-            #     self.y = 100
-            #     self.size = 100
-            pass
+            if other.y == 90:
+                print(f"CCOLLISIONNNNNNNNNNN")
 
-            # elif self.collisionCount == 1:
-            #     self.collisionCount += 1
-            #     game_world.remove_object(self)
-            pass
+                if self.collisionCount == 0:
+                    self.collisionCount += 1
+                    self.y = 100
+                    self.size = 100
+
+                elif self.collisionCount == 1:
+                    self.collisionCount += 1
+                    game_world.remove_object(self)
 
         if group == "boy:zombie":
             pass
