@@ -26,5 +26,5 @@ class Ball:
 
     def handle_collision(self, group, other):
         # fill here
-        if group == "boy:ball":
+        if group == "boy:ball" or group == "zombie:ball":
             game_world.remove_object(self)
